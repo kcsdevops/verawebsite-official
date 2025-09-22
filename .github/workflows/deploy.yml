@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
 
 env:
-  PROJECT_ID: veracare-podologia
+  PROJECT_ID: expanded-aria-430513-s9
   REGION: us-central1
-  SERVICE_NAME: veracare-podologia
+  SERVICE_NAME: portal-podal-vera
 
 jobs:
   deploy:

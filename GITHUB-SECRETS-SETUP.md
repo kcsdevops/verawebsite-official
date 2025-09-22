@@ -46,7 +46,7 @@ cat key.json
 
 ### Passo 2: Configurar Secret no GitHub
 
-1. **Acesse seu repositório**: https://github.com/kcsdevops/verapodalespecial
+1. **Acesse seu repositório**: https://github.com/kcsdevops/portal-podal-vera
 2. **Vá em Settings** → **Secrets and variables** → **Actions**
 3. **Clique em "New repository secret"**
 4. **Nome**: `GOOGLE_CLOUD_SA_KEY`
@@ -112,7 +112,7 @@ Execute este script PowerShell para configurar tudo automaticamente:
    ```
 
 2. **Acompanhe o deploy**:
-   - GitHub: https://github.com/kcsdevops/verapodalespecial/actions
+   - GitHub: https://github.com/kcsdevops/portal-podal-vera/actions
    - Cloud Run: https://console.cloud.google.com/run?project=veracare-podologia
 
 3. **Acesse a aplicação**:

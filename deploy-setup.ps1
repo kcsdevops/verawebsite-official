@@ -140,7 +140,7 @@ try {
         
         Write-Host "`n🔐 IMPORTANTE - CONFIGURAR GITHUB SECRET:" -ForegroundColor Red
         Write-Host "=====================================" -ForegroundColor Red
-        Write-Host "1. Acesse: https://github.com/kcsdevops/verapodalespecial/settings/secrets/actions" -ForegroundColor Yellow
+        Write-Host "1. Acesse: https://github.com/kcsdevops/portal-podal-vera/settings/secrets/actions" -ForegroundColor Yellow
         Write-Host "2. Clique em 'New repository secret'" -ForegroundColor Yellow
         Write-Host "3. Nome: GOOGLE_CLOUD_SA_KEY" -ForegroundColor Yellow
         Write-Host "4. Value: Cole o conteúdo do arquivo github-sa-key.json" -ForegroundColor Yellow
