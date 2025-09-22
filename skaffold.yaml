@@ -1,0 +1,40 @@
+# Configuração do Skaffold para Cloud Code
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: veracare-podologia
+build:
+  artifacts:
+  - image: veracare-app
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  cloudrun:
+    projectid: "veracare-podologia"  # Será preenchido durante o deploy
+    region: us-central1
+profiles:
+- name: development
+  activation:
+  - command: dev
+  build:
+    artifacts:
+    - image: veracare-app
+      docker:
+        dockerfile: Dockerfile
+        target: development
+  deploy:
+    cloudrun:
+      projectid: "veracare-podologia"
+      region: us-central1
+      
+- name: production
+  build:
+    artifacts:
+    - image: veracare-app
+      docker:
+        dockerfile: Dockerfile
+        target: production
+  deploy:
+    cloudrun:
+      projectid: "veracare-podologia"
+      region: us-central1

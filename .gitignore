@@ -104,3 +104,24 @@ logs/
 # Build artifacts
 dist/
 build/
+
+# Terraform
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/*.tfvars
+terraform/terraform.exe
+**/.terraform/
+**/.terraform.lock.hcl
+**/terraform-provider-*
+
+# Google Cloud
+.gcloud/
+gcloud/
+
+# Large files and binaries
+*.exe
+*.dll
+*.so
+*.dylib

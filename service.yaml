@@ -1,0 +1,60 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: veracare-podologia
+  annotations:
+    # Configurações específicas do Cloud Run
+    run.googleapis.com/ingress: all
+    run.googleapis.com/execution-environment: gen2
+    # Configuração de CPU sempre alocada (melhor performance)
+    run.googleapis.com/cpu-throttling: "false"
+spec:
+  template:
+    metadata:
+      annotations:
+        # Configurações de auto-scaling
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "10"
+        # Configurações de recursos
+        run.googleapis.com/memory: "512Mi"
+        run.googleapis.com/cpu: "1"
+        # Timeout para requests
+        run.googleapis.com/timeout: "300s"
+        # Configuração de concorrência
+        run.googleapis.com/execution-environment: gen2
+    spec:
+      containerConcurrency: 80
+      timeoutSeconds: 300
+      containers:
+      - image: gcr.io/PROJECT_ID/veracare-app:latest
+        ports:
+        - name: http1
+          containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: PORT
+          value: "3000"
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+          requests:
+            cpu: "0.5"
+            memory: "256Mi"
+        # Health checks
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+  traffic:
+  - percent: 100
+    latestRevision: true
