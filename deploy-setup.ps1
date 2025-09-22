@@ -91,9 +91,69 @@ Write-Host "`n📝 ATUALIZANDO CONFIGURAÇÕES..." -ForegroundColor Yellow
 $skaffoldPath = "skaffold.yaml"
 if (Test-Path $skaffoldPath) {
     $content = Get-Content $skaffoldPath -Raw
-    $content = $content -replace 'projectid: ""', "projectid: `"$ProjectId`""
+    $content = $content -replace 'projectid: ".*?"', "projectid: `"$ProjectId`""
     Set-Content $skaffoldPath $content
     Write-Host "✅ Skaffold.yaml atualizado com projeto: $ProjectId" -ForegroundColor Green
+}
+
+# Configurar Service Account para GitHub Actions
+Write-Host "`n🔑 CONFIGURANDO SERVICE ACCOUNT PARA GITHUB ACTIONS..." -ForegroundColor Yellow
+
+$saName = "github-actions-deploy"
+$saEmail = "$saName@$ProjectId.iam.gserviceaccount.com"
+
+try {
+    # Verificar se service account já existe
+    $existingSA = gcloud iam service-accounts list --filter="email:$saEmail" --format="value(email)" 2>$null
+    
+    if (-not $existingSA) {
+        Write-Host "   Criando service account..." -ForegroundColor Gray
+        gcloud iam service-accounts create $saName `
+            --display-name="GitHub Actions Deploy" `
+            --description="Service account para deploy automático via GitHub Actions"
+    } else {
+        Write-Host "   Service account já existe" -ForegroundColor Gray
+    }
+
+    # Configurar permissões necessárias
+    Write-Host "   Configurando permissões..." -ForegroundColor Gray
+    
+    $roles = @(
+        "roles/run.admin",
+        "roles/storage.admin", 
+        "roles/iam.serviceAccountUser",
+        "roles/cloudbuild.builds.builder"
+    )
+
+    foreach ($role in $roles) {
+        gcloud projects add-iam-policy-binding $ProjectId `
+            --member="serviceAccount:$saEmail" `
+            --role="$role" 2>$null
+    }
+
+    # Gerar chave JSON se não existir
+    $keyFile = "github-sa-key.json"
+    if (-not (Test-Path $keyFile)) {
+        Write-Host "   Gerando chave JSON..." -ForegroundColor Gray
+        gcloud iam service-accounts keys create $keyFile `
+            --iam-account="$saEmail"
+        
+        Write-Host "`n🔐 IMPORTANTE - CONFIGURAR GITHUB SECRET:" -ForegroundColor Red
+        Write-Host "=====================================" -ForegroundColor Red
+        Write-Host "1. Acesse: https://github.com/kcsdevops/verapodalespecial/settings/secrets/actions" -ForegroundColor Yellow
+        Write-Host "2. Clique em 'New repository secret'" -ForegroundColor Yellow
+        Write-Host "3. Nome: GOOGLE_CLOUD_SA_KEY" -ForegroundColor Yellow
+        Write-Host "4. Value: Cole o conteúdo do arquivo github-sa-key.json" -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "📄 Conteúdo da chave (COPIE ESTE JSON):" -ForegroundColor Cyan
+        Write-Host "=======================================" -ForegroundColor Cyan
+        Get-Content $keyFile | Write-Host -ForegroundColor White
+        Write-Host "=======================================" -ForegroundColor Cyan
+    }
+
+} catch {
+    Write-Host "⚠️ Erro ao configurar service account: $($_.Exception.Message)" -ForegroundColor Yellow
+    Write-Host "   Configure manualmente seguindo GITHUB-SECRETS-SETUP.md" -ForegroundColor Yellow
 }
 
 # Criar .env para desenvolvimento local

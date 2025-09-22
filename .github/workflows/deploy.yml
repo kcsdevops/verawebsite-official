@@ -1,15 +1,16 @@
-name: Deploy to Google Cloud Run
+name: 🚀 Deploy Veracare para Cloud Run
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ master, main ]
+  workflow_dispatch:
 
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  SERVICE_NAME: veracare-site
+  PROJECT_ID: veracare-podologia
   REGION: us-central1
+  SERVICE_NAME: veracare-podologia
 
 jobs:
   deploy:
@@ -28,60 +29,62 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Run tests (if available)
+    - name: 🧪 Executar testes (se disponível)
       run: npm test --if-present
 
-    - name: Build application
+    - name: 🏗️ Build aplicação
       run: npm run build
 
-    - name: Setup Google Cloud CLI
-      uses: google-github-actions/setup-gcloud@v1
+    - name: 🔐 Configurar Google Cloud Auth
+      uses: google-github-actions/auth@v2
       with:
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        export_default_credentials: true
+        credentials_json: ${{ secrets.GOOGLE_CLOUD_SA_KEY }}
 
-    - name: Configure Docker for Google Cloud
+    - name: ☁️ Configurar Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ env.PROJECT_ID }}
+
+    - name: 🐳 Configurar Docker para Google Cloud
       run: gcloud auth configure-docker
 
-    - name: Build Docker image
+    - name: 🚀 Build e Deploy direto para Cloud Run
       run: |
-        docker build -t gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA \
-                     -t gcr.io/$PROJECT_ID/$SERVICE_NAME:latest .
-
-    - name: Push Docker image
-      run: |
-        docker push gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA
-        docker push gcr.io/$PROJECT_ID/$SERVICE_NAME:latest
-
-    - name: Deploy to Cloud Run
-      run: |
-        gcloud run deploy $SERVICE_NAME \
-          --image gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA \
-          --region $REGION \
+        gcloud run deploy ${{ env.SERVICE_NAME }} \
+          --source . \
+          --region ${{ env.REGION }} \
           --platform managed \
-          --allow-unauthenticated \
-          --port 3000 \
           --memory 512Mi \
           --cpu 1 \
           --min-instances 0 \
           --max-instances 10 \
-          --set-env-vars "NODE_ENV=production,NEXT_TELEMETRY_DISABLED=1"
+          --port 3000 \
+          --allow-unauthenticated \
+          --set-env-vars NODE_ENV=production,PORT=3000,NEXT_TELEMETRY_DISABLED=1
 
-    - name: Get Service URL
+    - name: ✅ Verificar deploy e obter URL
       run: |
-        SERVICE_URL=$(gcloud run services describe $SERVICE_NAME --region $REGION --format="value(status.url)")
-        echo "Service deployed to: $SERVICE_URL"
+        SERVICE_URL=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
+          --region=${{ env.REGION }} \
+          --format='value(status.url)')
+        echo "🌐 Aplicação deployada em: $SERVICE_URL"
         echo "SERVICE_URL=$SERVICE_URL" >> $GITHUB_ENV
 
-    - name: Comment on PR
+    - name: 🧪 Teste de saúde da aplicação
+      run: |
+        sleep 10
+        curl -f $SERVICE_URL || exit 1
+        echo "✅ Aplicação está respondendo corretamente"
+
+    - name: 💬 Comentário no PR
       if: github.event_name == 'pull_request'
-      uses: actions/github-script@v6
+      uses: actions/github-script@v7
       with:
         script: |
           github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: `🚀 Deploy realizado com sucesso!\n\n📱 URL da aplicação: ${process.env.SERVICE_URL}\n\n✅ Todas as verificações passaram.`
+            body: `🎉 **Deploy realizado com sucesso!**\n\n🌐 **URL da aplicação:** ${process.env.SERVICE_URL}\n\n✅ **Status:** Todas as verificações passaram\n🔧 **Projeto:** veracare-podologia\n📍 **Região:** us-central1\n\n🚀 Aplicação está rodando no Google Cloud Run!`
+          })
           })
