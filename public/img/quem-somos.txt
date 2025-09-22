@@ -1,0 +1,7 @@
+Coloque aqui a imagem quem-somos.jpg
+
+- Renomeie a imagem anexada para: quem-somos.jpg
+- Salve em: public/img/quem-somos.jpg
+
+Formatos suportados: .jpg .png .webp
+Tamanho recomendado: 1200x800 (ou vertical 800x1200)

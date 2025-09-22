@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"resource_group","Source":"./modules/resource-group","Dir":"modules/resource-group"},{"Key":"static_web_app","Source":"./modules/static-web-app","Dir":"modules/static-web-app"},{"Key":"storage_account","Source":"./modules/storage-account","Dir":"modules/storage-account"}]}

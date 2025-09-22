@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #ffffff;
+  --fg: #0f172a; /* slate-900 */
+  --brand: #0ea5e9; /* sky-500 */
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  color: var(--fg);
+  background: var(--bg);
+}
+
+.container {
+  @apply max-w-6xl mx-auto px-4;
+}

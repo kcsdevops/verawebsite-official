@@ -1,0 +1,28 @@
+# Example Terraform variables configuration
+# Copy this file to terraform.tfvars and customize as needed
+
+# General Configuration
+resource_group_name = "rg-veracare-prod"
+location = "East US 2"
+environment = "prod"
+
+# Static Web App Configuration
+static_web_app_name = "swa-veracare-prod"
+static_web_app_location = "East US 2"
+sku_tier = "Free"  # or "Standard"
+sku_size = "Free"  # or "Standard"
+
+# Application Configuration
+api_url = "https://api.veracare.com.br"
+whatsapp_number = "5511967381029"
+
+# Custom Domain (optional - uncomment and configure if needed)
+# custom_domain = "www.veracare.com.br"
+
+# Storage Account for Terraform state (optional)
+create_storage_account = false
+storage_account_name = "stveracarestate"
+
+# GitHub Configuration
+github_repo_url = "https://github.com/kcsdevops/veracare-site"
+github_branch = "main"

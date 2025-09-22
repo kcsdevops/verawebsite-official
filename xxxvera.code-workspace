@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"DockerRun.DisableDockerrc": true,
+		"DockerRun.Containers": [
+			"253c666a1083",
+			"08a30b5a6b21",
+			"97bdeb2b872b",
+			"f1f1a5ab853d",
+			"126bebd7b504",
+			"ab920f4027f9",
+			"76a66a134b43",
+			"16be192014e6",
+			"6a47bf389bae",
+			"5674958075c7",
+			"f9c2f917a314",
+			"ab3210605d24",
+			"49e9f3ee1f39",
+			"633febe7f2df",
+			"ee47dc802fcc",
+			"85bc117b389b",
+			"86bce87f3b95",
+			"eec475f09156",
+			"8173540bd172",
+			"34ca61c3ac4e"
+		]
+	}
+}

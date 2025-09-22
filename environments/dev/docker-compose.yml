@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  veracare-dev:
+    build:
+      context: ../..
+      dockerfile: environments/dev/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../..:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_ENV=development
+    networks:
+      - veracare-dev-network
+
+networks:
+  veracare-dev-network:
+    driver: bridge

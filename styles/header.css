@@ -1,0 +1,55 @@
+/* Estilos globais para scrollbar escondida */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Animação fadeInDown para dropdowns */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-fadeInDown {
+  animation: fadeInDown 0.3s ease-out;
+}
+
+/* Garantir que o header fixo funcione bem */
+body {
+  scroll-behavior: smooth;
+}
+
+/* Melhorar a responsividade do scroll horizontal */
+@media (max-width: 1024px) {
+  .scrollbar-hide {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: block;
+    height: 4px;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 2px;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+  }
+}

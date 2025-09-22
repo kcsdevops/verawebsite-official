@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "contexts": ["./contexts"],
+      "hooks": ["./hooks"],
+      "pages": ["./pages"],
+      "services": ["./services"],
+      "ui": ["./ui"],
+      "assets": ["./assets"],
+      "routes": ["./routes"],
+      "utils": ["./utils"],
+      "static-data": ["./static-data"],
+      "strings": ["./strings"],
+      "icons": ["./icons"],
+      "fake-data": ["./fake-data"]
+    }
+  }
+}

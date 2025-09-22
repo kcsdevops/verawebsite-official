@@ -1,0 +1,1 @@
+C:/Users/renov/xxxvera/.venv/Scripts/python.exe app.py
