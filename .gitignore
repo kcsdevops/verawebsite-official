@@ -82,3 +82,25 @@ jspm_packages/
 
 # Docker
 docker-compose.override.yml
+
+# Embedded Git repositories
+agendamento-web/
+temp-agendamento/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Build artifacts
+dist/
+build/
