@@ -41,12 +41,13 @@ export function Header() {
   const menuItems = [
     { href: '/', label: 'Início', icon: '🏠' },
     { href: '/quem-somos', label: 'Quem Somos', icon: '👥' },
+    { href: '/equipe', label: 'Equipe', icon: '👨‍⚕️' },
     { href: '/servicos', label: 'Serviços', icon: '🩺' },
     { href: '/catalogo', label: 'Catálogo', icon: '📖' },
-    { href: '/agenda', label: 'Agendar', icon: '�' },
+    { href: '/agenda', label: 'Agendar', icon: '📅' },
     { href: '/agendamento-avancado', label: 'Agendamento+', icon: '⚡' },
     { href: '/contato', label: 'Contato', icon: '📞' },
-    { href: '/politica-privacidade', label: 'Privacidade', icon: '�' }
+    { href: '/politica-privacidade', label: 'Privacidade', icon: '🔒' }
   ];
 
   return (
