@@ -1,0 +1,22 @@
+# Dockerfile simplificado para VeraCare
+FROM node:18-alpine
+
+# Instalar dependências do sistema
+RUN apk add --no-cache libc6-compat
+
+WORKDIR /app
+
+# Copiar arquivos do projeto
+COPY . .
+
+# Instalar dependências
+RUN npm install --legacy-peer-deps
+
+# Build do projeto
+RUN npm run build
+
+# Expor porta 8080
+EXPOSE 8080
+
+# Usar servidor simplificado
+CMD ["node", "server-simple.js"]

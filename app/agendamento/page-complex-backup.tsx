@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Header } from '../../components/Header';
-import { Footer } from '../../components/Footer';
-import { Calendar } from '../../components/Calendar';
+import { Header } from '../../src/components/ui/Header';
+import { Footer } from '../../src/components/ui/Footer';
+import { Calendar } from '../../src/components/ui/Calendar';
 import { schedulingEngine } from '../../utils/schedulingEngine';
 import { confirmationService, ConfirmationData } from '../../utils/confirmationService';
 import { EmailNotificationService } from '../../utils/emailNotificationService';

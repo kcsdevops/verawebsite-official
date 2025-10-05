@@ -6,7 +6,7 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Veracare</h3>
             <p className="text-sm">
-              Há mais de 10 anos cuidando da saúde dos seus pés com dedicação e expertise.
+              Cuidando da saúde dos seus pés com dedicação, experiência e expertise.
             </p>
           </div>
           <div>

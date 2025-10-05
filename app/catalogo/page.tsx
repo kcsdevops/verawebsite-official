@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { Header } from '../../components/Header';
-import { Footer } from '../../components/Footer';
+import { Header } from '../../src/components/ui/Header';
+import { Footer } from '../../src/components/ui/Footer';
 
 export default function CatalogoPage() {
   return (

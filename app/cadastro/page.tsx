@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Header } from '../../components/Header';
-import { Footer } from '../../components/Footer';
+import { Header } from '../../src/components/ui/Header';
+import { Footer } from '../../src/components/ui/Footer';
 import { EmailNotificationService } from '../../utils/emailNotificationService';
 
 interface FormData {

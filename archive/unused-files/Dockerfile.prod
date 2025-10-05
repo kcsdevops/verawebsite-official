@@ -1,0 +1,55 @@
+# Dockerfile para VeraCare - Produção
+FROM node:18-alpine AS base
+
+# Instalar dependências necessárias
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+# Copiar arquivos de dependência
+COPY package*.json ./
+RUN npm install --legacy-peer-deps --silent
+
+# Estágio de build
+FROM node:18-alpine AS builder
+WORKDIR /app
+
+# Copiar dependências do estágio anterior
+COPY --from=base /app/node_modules ./node_modules
+COPY . .
+
+# Configurar para build de produção
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+
+# Fazer build da aplicação
+RUN npm run build
+
+# Estágio de produção
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+# Criar usuário não-root para segurança
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Copiar arquivos necessários
+COPY --from=builder /app/out ./out
+COPY --from=builder /app/server-static.js ./server-static.js
+COPY --from=builder /app/package*.json ./
+
+# Instalar apenas express para produção
+RUN npm install express --silent
+
+# Configurar permissões
+RUN chown -R nextjs:nodejs /app
+USER nextjs
+
+# Expor porta
+EXPOSE 8080
+
+# Variáveis de ambiente
+ENV NODE_ENV=production
+ENV PORT=8080
+
+# Comando para iniciar
+CMD ["node", "server-static.js"]

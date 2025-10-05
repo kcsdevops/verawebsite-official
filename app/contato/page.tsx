@@ -1,7 +1,7 @@
-import { Header } from '../../components/Header'
-import { Footer } from '../../components/Footer'
-import { LocationMap } from '../../components/LocationMap'
-import { SecuritySeals } from '../../components/SecuritySeals'
+import { Header } from '../../src/components/ui/Header'
+import { Footer } from '../../src/components/ui/Footer'
+import { LocationMap } from '../../src/components/ui/LocationMap'
+import { SecuritySeals } from '../../src/components/ui/SecuritySeals'
 
 const WHATS = 'https://wa.me/5511967381029?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20atendimento'
 
@@ -249,3 +249,4 @@ export default function ContatoPage() {
     </>
   )
 }
+

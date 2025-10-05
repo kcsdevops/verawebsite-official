@@ -1,0 +1,51 @@
+# Azure Container Apps Configuration
+# Arquivo de configuração para deploy no Azure Container Apps
+
+# 🚀 DEPLOY PARA AZURE CONTAINER APPS
+# Versão otimizada para menor custo e recursos
+
+# 1. CONFIGURAÇÃO DO CONTAINER APP
+location: "East US"  # Região de menor custo
+resourceGroup: "rg-veracare-prod"
+containerAppName: "veracare-app"
+environmentName: "veracare-env"
+
+# 2. CONFIGURAÇÃO DE RECURSOS (MÍNIMO)
+cpu: 0.25         # 0.25 CPU cores (menor custo)
+memory: "0.5Gi"   # 0.5 GB RAM (mínimo necessário)
+minReplicas: 0    # Scale to zero quando não usar
+maxReplicas: 2    # Máximo 2 instâncias
+
+# 3. CONFIGURAÇÃO DE REDE
+ingress:
+  external: true
+  targetPort: 3000
+  allowInsecure: false
+
+# 4. VARIÁVEIS DE AMBIENTE (PRODUÇÃO)
+env:
+  - name: NODE_ENV
+    value: "production"
+  - name: NEXTAUTH_URL
+    value: "https://veracare-app.politeocean-12345678.eastus.azurecontainerapps.io"
+  - name: NEXTAUTH_SECRET
+    secretRef: "nextauth-secret"
+  - name: JWT_SECRET
+    secretRef: "jwt-secret"
+  - name: ADMIN_PASSWORD_HASH
+    secretRef: "admin-password"
+
+# 5. SECRETS (CONFIGURAR NO AZURE)
+secrets:
+  - name: "nextauth-secret"
+    value: ""  # Gerar chave forte de 32+ caracteres
+  - name: "jwt-secret" 
+    value: ""  # Gerar chave forte de 32+ caracteres
+  - name: "admin-password"
+    value: ""  # Hash bcrypt da senha AdminVeraCare2025!
+
+# 6. ESTIMATIVA DE CUSTO MENSAL
+# CPU: 0.25 cores x 24h x 30 dias = ~$5-10/mês
+# RAM: 0.5GB x 24h x 30 dias = ~$2-5/mês
+# Ingress: ~$1-2/mês
+# TOTAL ESTIMADO: $8-17/mês USD

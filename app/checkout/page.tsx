@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Header } from '../../components/Header';
-import { Footer } from '../../components/Footer';
+import { Header } from '../../src/components/ui/Header';
+import { Footer } from '../../src/components/ui/Footer';
 import PedidoService, { ItemPedido, DadosCliente } from '../../utils/pedidoService';
 import SocialAuthService from '../../utils/socialAuthService';
 import { useRouter } from 'next/navigation';

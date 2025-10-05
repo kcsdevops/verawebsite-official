@@ -1,7 +1,7 @@
-import { Header } from '../../components/Header';
-import { Footer } from '../../components/Footer';
-import WhatsAppPopup from '../../components/WhatsAppPopup';
-import ProfessionalImage from '../../components/ProfessionalImage';
+import { Header } from '../../src/components/ui/Header';
+import { Footer } from '../../src/components/ui/Footer';
+import WhatsAppPopup from '../../src/components/ui/WhatsAppPopup';
+import ProfessionalImage from '../../src/components/ui/ProfessionalImage';
 
 export default function QuemSomosPage() {
   return (
@@ -20,7 +20,7 @@ export default function QuemSomosPage() {
           <div className="md:w-2/3 md:pl-8">
             <h2 className="text-2xl font-semibold mb-4">Veralucia Trindade Santos</h2>
             <p className="text-lg mb-4">
-              Sou Veralucia Trindade Santos, podóloga especializada em cuidados com os pés há mais de 10 anos.
+              Sou Veralucia Trindade Santos, podóloga especializada em cuidados com os pés com ampla experiência.
               Minha missão é proporcionar saúde, bem-estar e conforto aos meus pacientes, tratando desde problemas
               simples como calos e unhas encravadas até condições mais complexas como micose e fissuras.
             </p>
@@ -122,3 +122,4 @@ export default function QuemSomosPage() {
     </>
   );
 }
+

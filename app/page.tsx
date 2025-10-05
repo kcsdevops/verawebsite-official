@@ -1,10 +1,13 @@
 'use client';
 
 import Link from 'next/link'
-import { Header } from '../components/Header'
-import { Footer } from '../components/Footer'
-import WhatsAppPopup from '../components/WhatsAppPopup'
-import ProfessionalImage from '../components/ProfessionalImage'
+import { Header } from '../src/components/ui/Header'
+import { Footer } from '../src/components/ui/Footer'
+import WhatsAppPopup from '../src/components/ui/WhatsAppPopup'
+import ProfessionalImage from '../src/components/ui/ProfessionalImage'
+import AnimatedText from '../src/components/animations/AnimatedText'
+import FadeInOnScroll from '../src/components/animations/FadeInOnScroll'
+import HeroBanner from '../src/components/ui/HeroBanner'
 
 const WHATS = 'https://wa.me/5511967381029?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20atendimento'
 
@@ -12,39 +15,34 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <main className="pt-32">
-        <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-20">
-          <div className="container text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">Os seus pés em boas mãos!</h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8">
-              Veracare, há mais de 10 anos cuidando da saúde dos seus pés com dedicação e expertise.
-            </p>
-            <div className="space-x-4">
-              <Link className="inline-block bg-white text-blue-600 px-6 py-3 rounded-md font-semibold hover:bg-gray-100" href="/agenda">
-                Agende Sua Consulta
-              </Link>
-              <Link className="inline-block bg-transparent border-2 border-white text-white px-6 py-3 rounded-md font-semibold hover:bg-white hover:text-blue-600" href="/quem-somos">
-                Sobre Nós
-              </Link>
-            </div>
-          </div>
-        </section>
-
+      
+      {/* Hero Banner */}
+      <HeroBanner />
+      
+      <main>
         <section className="py-16 bg-gray-50">
           <div className="container">
-            <h2 className="text-3xl font-bold text-center mb-12">Por que escolher a Veracare?</h2>
+            <FadeInOnScroll>
+              <AnimatedText 
+                text="Por que escolher a Veracare?"
+                className="text-3xl font-bold text-center mb-12 text-gradient-blue"
+                type="fadeIn"
+              />
+            </FadeInOnScroll>
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center bg-white p-8 rounded-lg shadow-md">
-                <div className="mb-6">
-                  <img 
-                    src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200&q=80" 
-                    alt="Profissional cuidando dos pés" 
-                    className="w-full h-48 object-cover rounded-lg"
-                  />
+              <FadeInOnScroll delay={200} direction="left">
+                <div className="text-center bg-white p-8 rounded-lg shadow-md hover-scale smooth-transition">
+                  <div className="mb-6">
+                    <img 
+                      src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200&q=80" 
+                      alt="Profissional cuidando dos pés" 
+                      className="w-full h-48 object-cover rounded-lg"
+                    />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-4">Qualidade Garantida</h3>
+                  <p>Somos especialistas em cuidar dos seus pés com tratamentos eficazes e seguros, utilizando técnicas modernas e equipamentos de ponta.</p>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">Qualidade Garantida</h3>
-                <p>Somos especialistas em cuidar dos seus pés com tratamentos eficazes e seguros, utilizando técnicas modernas e equipamentos de ponta.</p>
-              </div>
+              </FadeInOnScroll>
               <div className="text-center bg-white p-8 rounded-lg shadow-md">
                 <div className="mb-6">
                   <img 
@@ -75,7 +73,7 @@ export default function HomePage() {
           <div className="container">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-3xl font-bold mb-6">Há mais de 10 anos cuidando da saúde dos seus pés!</h2>
+                <h2 className="text-3xl font-bold mb-6">Cuidando da saúde dos seus pés com excelência!</h2>
                 <p className="text-lg mb-6">
                   Na Veracare, nossa missão é proporcionar saúde, bem-estar e conforto aos seus pés através de tratamentos preventivos e curativos,
                   sempre com profissionalismo e dedicação.
@@ -96,8 +94,8 @@ export default function HomePage() {
                   />
                   <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm p-4 rounded-lg">
                     <h3 className="font-semibold text-gray-800">Veralucia Trindade Santos</h3>
-                    <p className="text-sm text-gray-600">Podóloga Especialista - Conselho Regional de Biomedicina (CRBM): 12345</p>
-                    <p className="text-xs text-gray-500 mt-1">Mais de 10 anos de experiência em cuidados podológicos</p>
+                    <p className="text-sm text-gray-600">Podóloga Especialista</p>
+                    <p className="text-xs text-gray-500 mt-1">Ampla experiência em cuidados podológicos especializados</p>
                   </div>
                 </div>
               </div>
@@ -128,13 +126,13 @@ export default function HomePage() {
                   </div>
                   <div className="md:col-span-2 text-left">
                     <h3 className="text-2xl font-bold text-gray-800 mb-2">Veralucia Trindade Santos</h3>
-                    <p className="text-blue-600 font-semibold mb-4">Podóloga Especialista • Conselho Regional de Biomedicina (CRBM): 12345</p>
+                    <p className="text-blue-600 font-semibold mb-4">Podóloga Especialista</p>
                     <p className="text-gray-600 mb-4">
-                      "Há mais de 10 anos dedicada aos cuidados podológicos, minha missão é proporcionar saúde, 
+                      "Dedicada aos cuidados podológicos, minha missão é proporcionar saúde, 
                       bem-estar e conforto aos meus pacientes através de tratamentos personalizados e técnicas modernas."
                     </p>
                     <div className="flex flex-wrap gap-3 mb-6">
-                      <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">✨ 10+ anos experiência</span>
+                      <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">✨ Ampla experiência</span>
                       <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">🎓 Especialista certificada</span>
                       <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">💯 Atendimento humanizado</span>
                     </div>
@@ -150,6 +148,122 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Seção Cases de Sucesso */}
+        <section className="py-16 bg-gradient-to-r from-green-50 to-blue-50">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Cases de Sucesso Reais</h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Veja os resultados excepcionais de nossos tratamentos especializados em podologia
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Case 1 - Unhas Encravadas */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src="/images/cases/unha-encravada-procedimento.jpg" 
+                    alt="Tratamento de Unha Encravada - Espicolectomia"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-xs">
+                    ✓ Curado
+                  </div>
+                  <div className="absolute bottom-2 left-2 bg-black/70 text-white px-2 py-1 rounded text-xs">
+                    Espicolectomia
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">Unhas Encravadas Severas</h3>
+                  <p className="text-gray-600 mb-4">Correção definitiva com fenolização</p>
+                  <div className="text-sm text-gray-500 mb-4">
+                    <p>• Taxa de sucesso: 95%</p>
+                    <p>• Recuperação: 48h</p>
+                  </div>
+                  <Link 
+                    href="/cases-de-sucesso#case-1"
+                    className="text-blue-600 hover:text-blue-800 font-medium"
+                  >
+                    Ver detalhes →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Case 2 - Micose */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src="/images/cases/onicomicose-tratamento.jpg" 
+                    alt="Tratamento de Onicomicose - Eliminação de Fungos"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-xs">
+                    ✓ Recuperado
+                  </div>
+                  <div className="absolute bottom-2 left-2 bg-black/70 text-white px-2 py-1 rounded text-xs">
+                    Onicomicose
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">Onicomicose Severa</h3>
+                  <p className="text-gray-600 mb-4">Eliminação completa de fungos</p>
+                  <div className="text-sm text-gray-500 mb-4">
+                    <p>• Unha 100% regenerada</p>
+                    <p>• Sem recidiva</p>
+                  </div>
+                  <Link 
+                    href="/cases-de-sucesso#case-2"
+                    className="text-blue-600 hover:text-blue-800 font-medium"
+                  >
+                    Ver detalhes →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Case 3 - Calosidades */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src="/images/cases/calosidades-procedimento.jpg" 
+                    alt="Remoção de Calosidades e Hiperqueratoses"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-xs">
+                    ✓ Restaurado
+                  </div>
+                  <div className="absolute bottom-2 left-2 bg-black/70 text-white px-2 py-1 rounded text-xs">
+                    Calosidades
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">Remoção de Calosidades</h3>
+                  <p className="text-gray-600 mb-4">Debridamento seguro e eficaz</p>
+                  <div className="text-sm text-gray-500 mb-4">
+                    <p>• Alívio imediato da dor</p>
+                    <p>• Pele restaurada</p>
+                  </div>
+                  <Link 
+                    href="/cases-de-sucesso#case-4"
+                    className="text-blue-600 hover:text-blue-800 font-medium"
+                  >
+                    Ver detalhes →
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center mt-12">
+              <Link 
+                href="/cases-de-sucesso"
+                className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              >
+                Ver Todos os Cases de Sucesso
+              </Link>
             </div>
           </div>
         </section>

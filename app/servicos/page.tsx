@@ -1,7 +1,7 @@
 'use client'
 
-import { Header } from '../../components/Header'
-import { Footer } from '../../components/Footer'
+import { Header } from '../../src/components/ui/Header'
+import { Footer } from '../../src/components/ui/Footer'
 import { useState } from 'react'
 
 interface ServicoItem {
@@ -269,3 +269,4 @@ export default function ServicosPage() {
     </>
   )
 }
+

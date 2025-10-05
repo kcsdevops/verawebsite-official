@@ -1,7 +1,8 @@
 import './globals.css'
 import '../styles/header.css'
 import type { Metadata } from 'next'
-import { FloatingButtons } from '../components/FloatingButtons'
+import { FloatingButtons } from '../src/components/ui/FloatingButtons'
+import { AuthProvider } from '../src/components/providers/AuthProvider'
 
 export const metadata: Metadata = {
   title: 'Veracare | Podologia em Casa Verde',
@@ -21,9 +22,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR">
       <body>
-        {children}
-        <FloatingButtons />
+        <AuthProvider>
+          {children}
+          <FloatingButtons />
+        </AuthProvider>
       </body>
     </html>
   )
 }
+

@@ -1,0 +1,39 @@
+# Dockerfile para VeraCare com IIS Windows
+FROM mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2022
+
+# Configurar PowerShell
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+# Instalar Node.js 18
+RUN Invoke-WebRequest -Uri 'https://nodejs.org/dist/v18.17.0/node-v18.17.0-x64.msi' -OutFile 'C:/node.msi'; \
+    Start-Process -FilePath 'msiexec.exe' -ArgumentList '/i', 'C:/node.msi', '/quiet', '/norestart' -Wait; \
+    Remove-Item 'C:/node.msi' -Force
+
+# Definir diretório de trabalho
+WORKDIR /app
+
+# Copiar package files
+COPY package*.json ./
+
+# Instalar dependências
+RUN npm install
+
+# Copiar código fonte
+COPY . .
+
+# Build da aplicação Next.js para export estático
+RUN npm run build
+
+# Configurar IIS
+RUN Import-Module WebAdministration; \
+    Remove-WebSite -Name 'Default Web Site' -ErrorAction SilentlyContinue; \
+    New-WebSite -Name 'VeraCare' -Port 80 -PhysicalPath 'C:/app/out' -ApplicationPool 'DefaultAppPool'
+
+# Configurar permissões
+RUN icacls 'C:/app/out' /grant 'IIS_IUSRS:(OI)(CI)F' /T
+
+# Expor porta 80
+EXPOSE 80
+
+# Iniciar IIS
+CMD ["powershell", "-Command", "Start-Service W3SVC; while ($true) { Start-Sleep -Seconds 3600 }"]

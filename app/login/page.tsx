@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Header } from '../../components/Header';
-import { Footer } from '../../components/Footer';
+import { Header } from '../../src/components/ui/Header';
+import { Footer } from '../../src/components/ui/Footer';
 import { MigrationService } from '../../utils/migrationService';
-import SocialLogin from '../../components/SocialLogin';
+import SocialLogin from '../../src/components/ui/SocialLogin';
 import SocialAuthService from '../../utils/socialAuthService';
 
 interface FormData {

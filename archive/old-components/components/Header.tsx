@@ -43,6 +43,7 @@ export function Header() {
     { href: '/quem-somos', label: 'Quem Somos', icon: '👥' },
     { href: '/equipe', label: 'Equipe', icon: '👨‍⚕️' },
     { href: '/servicos', label: 'Serviços', icon: '🩺' },
+    { href: '/cases-de-sucesso', label: 'Cases de Sucesso', icon: '🏆' },
     { href: '/catalogo', label: 'Catálogo', icon: '📖' },
     { href: '/agenda', label: 'Agendar', icon: '📅' },
     { href: '/agendamento-avancado', label: 'Agendamento+', icon: '⚡' },
